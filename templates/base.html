@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Ta'lim</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary mb-3">
+        <div class="container">
+
+            <a class="navbar-brand me-2" href="{% url 'home' %}">
+                <h5 class="mb-0">Online Ta'lim</h5>
+            </a>
+
+
+            <button data-mdb-collapse-init class="navbar-toggler" type="button" data-mdb-target="#navbarButtonsExample"
+                aria-controls="navbarButtonsExample" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
+
+            <div class="collapse navbar-collapse" id="navbarButtonsExample">
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Dashboard</a>
+                    </li>
+                </ul>
+
+                {% if request.user.is_authenticated %}
+
+                <div class="d-flex align-items-center gap-2">
+                    
+                    <!-- {% if request.user.is_staff %} -->
+                    <!-- {% endif %} -->
+                    <a href="{% url 'create-assignment' %}" data-mdb-ripple-init type="button" class="btn btn-success">
+                        Topshiriq qo'shish
+                    </a>
+
+
+
+                    <a href="{% url 'logout' %}" data-mdb-ripple-init type="button" class="btn btn-danger">
+                        Logout
+                    </a>
+                </div>
+
+                {% else %}
+
+                <div class="d-flex align-items-center gap-2">
+                    <a href="{% url 'login' %}" data-mdb-ripple-init type="button" class="btn btn-link">
+                        Login
+                    </a>
+                    <a href="{% url 'register' %}" data-mdb-ripple-init type="button" class="btn btn-primary">
+                        Sign up
+                    </a>
+                </div>
+
+                {% endif %}
+
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="content">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+
+
+
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+
+<div class="container">
+
+    <h3 class="mb-3">Uyga berilgan vazifalar</h3>
+
+    <div class="shadow border p-2 d-flex flex-column">
+
+        {% for assignment in assignments %}
+
+        {% if forloop.counter > 1 %}
+        <hr class="my-1" />
+        {% endif %}
+
+        <a href="{% url 'assignment' assignment.pk %}" class="p-2 d-flex">
+            <div class="w-50 fw-bold">Mavzu: {{ assignment.title }}</div>
+            <div class="w-50">Deadline: {{ assignment.deadline }}</div>
+        </a>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+{% endblock content %}
