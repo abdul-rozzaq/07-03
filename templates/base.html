@@ -39,13 +39,13 @@
                 {% if request.user.is_authenticated %}
 
                 <div class="d-flex align-items-center gap-2">
-                    
-                    <!-- {% if request.user.is_staff %} -->
-                    <!-- {% endif %} -->
+
+                    {% if request.user.is_staff %}
                     <a href="{% url 'create-assignment' %}" data-mdb-ripple-init type="button" class="btn btn-success">
                         Topshiriq qo'shish
                     </a>
 
+                    {% endif %}
 
 
                     <a href="{% url 'logout' %}" data-mdb-ripple-init type="button" class="btn btn-danger">

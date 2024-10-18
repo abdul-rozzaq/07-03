@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+
+<div class="container">
+
+    <h3 class="mb-3">{{ assignment.title }}</h3>
+
+    <p>{{ assignment.description|linebreaks }}</p>
+
+    <div class="shadow border p-2 d-flex flex-column">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <p>
+                <label for="" class="mb-2">Uy ishini yuklash</label>
+                <input type="file" name="file" class="form-control">
+            </p>
+
+            <button class="btn btn-primary">Yuborish</button>
+        </form>
+    </div>
+
+</div>
+
+
+{% endblock content %}

@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 
 from .forms import UserRegisterForm, AssignmentForm, SubmissionForm
-from .models import Assignment
+from .models import Assignment, Submission
 
 
 @login_required(login_url="login")
@@ -18,13 +18,28 @@ def home_page(request):
     return render(request, "home_page.html", context)
 
 
+@login_required(login_url="login")
 def assignment_page(request, pk):
     assignment = get_object_or_404(Assignment, pk=pk)
-    submissions = assignment.submissions.all()
+    context = {"assignment": assignment}
 
-    context = {"submissions": submissions}
+    if request.method == "POST":
+        user = request.user
+        file = request.FILES["file"]
 
-    return render(request, "assignment.html", context)
+        submission = Submission.objects.create(
+            student=user,
+            file=file,
+            assignment=assignment,
+        )
+
+    if request.user.is_staff:
+        submissions = assignment.submissions.all()
+        context["submissions"] = submissions
+
+        return render(request, "assignment.html", context)
+    else:
+        return render(request, "assignment-student.html", context)
 
 
 def create_assignment(request):
