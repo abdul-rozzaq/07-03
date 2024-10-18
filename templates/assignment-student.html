@@ -12,6 +12,25 @@
     <p>{{ assignment.description|linebreaks }}</p>
 
     <div class="shadow border p-2 d-flex flex-column">
+        {% if submissions %}
+
+            {% for submission in submissions %}
+
+                {% if forloop.counter > 1 %}
+                <hr class="my-1" />
+                {% endif %}
+
+                <div href="" class="p-2 d-flex">
+                    <div class="w-25 fw-bold">O'quvchi: {{ submission.student.username }}</div>
+                    <div class="w-25">Yuborilgan vaqt: {{ submission.submitted_at }}</div>
+                    <div class="w-25">Status: <span class="badge {{ submission.get_badge_class }}">{{ submission.get_status_display }}</span></div>
+                    <div class="w-25">File: <a class="badge bg-info" href="{{ submission.file.url }}" download>Yuklash</a></div>
+                </div>
+                
+            {% endfor %}
+
+        {% else %}
+
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
@@ -22,6 +41,9 @@
 
             <button class="btn btn-primary">Yuborish</button>
         </form>
+
+        {% endif %}
+
     </div>
 
 </div>

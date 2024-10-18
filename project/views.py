@@ -22,9 +22,9 @@ def home_page(request):
 def assignment_page(request, pk):
     assignment = get_object_or_404(Assignment, pk=pk)
     context = {"assignment": assignment}
+    user = request.user
 
     if request.method == "POST":
-        user = request.user
         file = request.FILES["file"]
 
         submission = Submission.objects.create(
@@ -38,7 +38,11 @@ def assignment_page(request, pk):
         context["submissions"] = submissions
 
         return render(request, "assignment.html", context)
+
     else:
+        submissions = user.submissions.all()
+        context["submissions"] = submissions
+
         return render(request, "assignment-student.html", context)
 
 
